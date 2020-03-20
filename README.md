@@ -47,3 +47,38 @@ On génére les controlleurs :
 php bin/console make:controller AccueilController
 php bin/console make:controller AnnonceController
 ```
+
+Ensuite, on prépare toutes les routes dans ```AnnonceController```. On attaque ensuite la partie BDD. On va installer Doctrine :
+
+```bash
+composer require symfony/orm-pack
+```
+
+Pour rappel, si vous créez votre projet avec ```symfony new immobiliare --full```, les ```composer require``` sont "déjà faits".
+
+Maintenant on attaque la base. On oublie pas le ```.env.local``` pour configurer la BDD :
+
+```bash
+DATABASE_URL=mysql://root:@127.0.0.1:3306/immobiliare?serverVersion=5.7
+```
+
+Je crée la BDD :
+
+```bash
+php bin/console doctrine:database:create
+```
+
+On crée l'entité Annonce :
+
+```bash
+php bin/console make:entity Annonce
+```
+
+On oublie pas de créer le schéma SQL (Faire le CREATE TABLE) :
+
+```bash
+# Pour debug, le dump
+php bin/console doctrine:schema:update --dump-sql
+# Pour exécuter la requête
+php bin/console doctrine:schema:update --force
+```
