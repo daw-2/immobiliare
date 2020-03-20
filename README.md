@@ -33,7 +33,15 @@ Pour la page d'accueil, on fait un controlleur à part ```AccueilController``` :
 
 - Page d'accueil -> /
 
-On utilise le maker :
+On installe les annotations et le maker :
+
+```bash
+composer require annotations
+composer require symfony/maker-bundle --dev
+composer require --dev symfony/debug-pack
+```
+
+On génére les controlleurs :
 
 ```bash
 php bin/console make:controller AnnonceController
