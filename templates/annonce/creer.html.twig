@@ -3,5 +3,11 @@
 {% block title %}Créer une annonce{% endblock %}
 
 {% block body %}
-    @todo Le formulaire pour créer une annonce
+    <h1>Créer une annonce</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button>Ajouter l'annonce</button>
+    {{ form_end(form) }}
 {% endblock %}

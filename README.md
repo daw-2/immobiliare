@@ -82,3 +82,45 @@ php bin/console doctrine:schema:update --dump-sql
 # Pour exécuter la requête
 php bin/console doctrine:schema:update --force
 ```
+
+On va attaquer le formulaire de création d'annonces pour remplir la BDD :
+
+```bash
+composer require form validator
+php bin/console make:form AnnonceType
+```
+
+Ensuite on s'occupe de la création d'annonces dans le controlleur :
+
+```php
+/**
+ * @Route("/annonces/creer", name="annonces_creer")
+ */
+public function creer(Request $request)
+{
+    $annonce = new Annonce();
+    // Ici je dois afficher mon formulaire
+    $form = $this->createForm(AnnonceType::class, $annonce);
+
+    // On va traiter le formulaire
+    $form->handleRequest($request);
+
+    // Vérifier les données du formulaire
+    if ($form->isSubmitted() && $form->isValid()) {
+        // $form->getData() est équivalent à $_POST
+        // dump($form->getData());
+        // dump($annonce);
+        // Ajouter l'annonce en BDD
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($annonce); // On insère l'objet dans la BDD
+        $entityManager->flush(); // On exécute la requête
+
+        // Pourquoi pas faire une petite redirection vers la page des annonces ?
+        return $this->redirectToRoute('annonces_liste');
+    }
+
+    return $this->render('annonce/creer.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
+```
