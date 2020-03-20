@@ -44,6 +44,6 @@ composer require --dev symfony/debug-pack
 On génére les controlleurs :
 
 ```bash
-php bin/console make:controller AnnonceController
 php bin/console make:controller AccueilController
+php bin/console make:controller AnnonceController
 ```
