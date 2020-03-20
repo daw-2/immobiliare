@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
+use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,9 +15,15 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonces", name="annonces_liste")
      */
-    public function index()
+    public function index(AnnonceRepository $annonceRepository)
     {
-        return $this->render('annonce/index.html.twig');
+        // On veut récupérer les annonces en BDD
+        // $annonces = $this->getDoctrine()->getRepository(Annonce::class)->findAll();
+        $annonces = $annonceRepository->findAll(); // $annonces nous renvoie un tableau avec des objets Annonce
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces,
+        ]);
     }
 
     /**

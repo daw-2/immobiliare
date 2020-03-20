@@ -3,5 +3,11 @@
 {% block title %}Nos annonces{% endblock %}
 
 {% block body %}
-    @todo Afficher la liste des annonces
+    <h1>Nos annonces</h1>
+
+    <ul>
+        {% for annonce in annonces %}
+            <li>{{ annonce.titre }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

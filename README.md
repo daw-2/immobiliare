@@ -124,3 +124,5 @@ public function creer(Request $request)
     ]);
 }
 ```
+
+Ensuite on a fait la liste des annonces.
