@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos propriétaires{% endblock %}
+
+{% block body %}
+    <h1>Nos propriétaires</h1>
+
+    <ul>
+        {% for proprietaire in proprietaires %}
+            <li>
+                <a href="{{ path('proprietaires_voir', { id: proprietaire.id }) }}">{{ proprietaire.prenom ~ ' ' ~ proprietaire.nom }}</a>
+                <a href="{{ path('proprietaires_modifier', { id: proprietaire.id }) }}">Modifier</a>
+                <a href="{{ path('proprietaires_supprimer', { id: proprietaire.id }) }}">Supprimer</a>
+            </li>
+        {% else %}
+            <li>Il n'y a pas de propriétaires sur le site. <a href="{{ path('proprietaires_creer') }}">Ajouter un propriétaire</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
