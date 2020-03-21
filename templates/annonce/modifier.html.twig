@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier annonce {{ annonce.titre }}{% endblock %}
+
+{% block body %}
+    @todo Il faudra modifier l'annonce {{ annonce.titre }} de la BDD
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button>Modifier</button>
+    {{ form_end(form) }}
+{% endblock %}

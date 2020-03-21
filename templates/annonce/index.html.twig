@@ -11,6 +11,7 @@
                 <a href="{{ path('annonces_voir', {id: annonce.id}) }}">
                     {{ annonce.titre }}
                 </a>
+                <a href="{{ path('annonces_modifier', {id: annonce.id}) }}">Modifier</a>
                 <a href="{{ path('annonces_supprimer', {id: annonce.id}) }}">Supprimer</a>
             </li>
         {% endfor %}

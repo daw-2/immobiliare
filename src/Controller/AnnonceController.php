@@ -62,6 +62,7 @@ class AnnonceController extends AbstractController
      */
     public function voir($id, AnnonceRepository $annonceRepository)
     {
+        // On va chercher l'annonce en BDD
         $annonce = $annonceRepository->find($id);
 
         // On renvoie une 404 si l'annonce n'existe pas
@@ -77,10 +78,21 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonces/modifier/{id}", name="annonces_modifier")
      */
-    public function modifier($id)
+    public function modifier(Request $request, Annonce $annonce)
     {
+        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            // Ici, pas besoin de faire le persist
+            // Car Doctrine sait qu'on a modifié l'objet
+            $entityManager->flush(); // UPDATE...
+        }
+
         return $this->render('annonce/modifier.html.twig', [
-            'id' => $id,
+            'annonce' => $annonce,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -89,6 +101,7 @@ class AnnonceController extends AbstractController
      */
     public function supprimer($id, AnnonceRepository $annonceRepository, EntityManagerInterface $entityManager)
     {
+        // On va chercher l'annonce en BDD
         $annonce = $annonceRepository->find($id);
 
         // On supprime en BDD

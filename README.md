@@ -125,4 +125,4 @@ public function creer(Request $request)
 }
 ```
 
-Ensuite on a fait la liste des annonces.
+Ensuite on a fait la liste des annonces. On a également fait la page d'une annonce seule et la suppression d'une annonce.
