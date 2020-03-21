@@ -43,6 +43,21 @@ class AnnonceController extends AbstractController
             // $form->getData() est équivalent à $_POST
             // dump($form->getData());
             // dump($annonce);
+
+            // Upload de la photo
+            $image = $form->get('photo')->getData();
+
+            if ($image !== null) {
+                // Je récupère le dossier où j'upload mes images
+                $uploadDir = __DIR__.'/../../public/uploads';
+                // Je fais l'upload en générant un nom pour l'image comme aerf1234.jpg
+                $fileName = uniqid().'.'.$image->guessExtension();
+                $image->move($uploadDir, $fileName);
+
+                // Je mets à jour l'entité pour la BDD
+                $annonce->setPhoto($fileName);
+            }
+
             // Ajouter l'annonce en BDD
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($annonce); // On insère l'objet dans la BDD

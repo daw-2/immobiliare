@@ -4,6 +4,11 @@
 
 {% block body %}
     <h1>{{ annonce.titre }}</h1>
+    {% if annonce.photo %}
+        <img src="/uploads/{{ annonce.photo }}" width="350">
+    {% else %}
+        <img src="/uploads/default.jpg" width="350">
+    {% endif %}
     <p>{{ annonce.description }}</p>
     <p>{{ annonce.surface }} m2</p>
     <p>Type: {{ annonce.type }}</p>
