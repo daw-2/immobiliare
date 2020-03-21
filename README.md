@@ -126,3 +126,18 @@ public function creer(Request $request)
 ```
 
 Ensuite on a fait la liste des annonces. On a également fait la page d'une annonce seule et la suppression d'une annonce.
+
+## Suite des annonces
+
+On souhaite maintenant gérer une liste de propriétaire sur le site. L'idée pour l'instant n'est pas de lier les propriétaires aux annonces.
+
+On va devoir créer une entité Proprietaire (Ne pas oublier de mettre à jour le schéma) :
+
+- Nom
+- Prénom
+- Date de naissance (date)
+- Avatar
+
+A partir de la page d'accueil, on pourra consulter la liste des propriétaires. On pourra créer un nouveau propriétaire. Sur la liste, on pourra également modifier ou supprimer un propriétaire.
+
+Dans le formulaire de création, on devra utiliser un Type de Symfony pour afficher la date de naissance sous forme de select. Sur la fiche d'un propriétaire, on affichera toutes ses informations dont son âge (et pas la date de naissance), il faudra faire un petit calcul pour afficher son âge (BONUS).
