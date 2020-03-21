@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AnnonceController extends AbstractController
@@ -60,10 +60,17 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonces/{id}", name="annonces_voir")
      */
-    public function voir($id)
+    public function voir($id, AnnonceRepository $annonceRepository)
     {
+        $annonce = $annonceRepository->find($id);
+
+        // On renvoie une 404 si l'annonce n'existe pas
+        if (!$annonce) {
+            throw $this->createNotFoundException();
+        }
+
         return $this->render('annonce/voir.html.twig', [
-            'id' => $id,
+            'annonce' => $annonce,
         ]);
     }
 
@@ -80,8 +87,15 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonces/supprimer/{id}", name="annonces_supprimer")
      */
-    public function supprimer($id)
+    public function supprimer($id, AnnonceRepository $annonceRepository, EntityManagerInterface $entityManager)
     {
-        return new Response('<body>On supprime '.$id.' et on redirige vers la liste des annonces</body>');
+        $annonce = $annonceRepository->find($id);
+
+        // On supprime en BDD
+        $entityManager->remove($annonce);
+        $entityManager->flush();
+
+        // On redirige
+        return $this->redirectToRoute('annonces_liste');
     }
 }

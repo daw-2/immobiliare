@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonce {{ id }}{% endblock %}
+{% block title %}Annonce {{ annonce.titre }}{% endblock %}
 
 {% block body %}
-    @todo Il faudra afficher l'annonce {{ id }} de la BDD
+    <h1>{{ annonce.titre }}</h1>
+    <p>{{ annonce.description }}</p>
+    <p>{{ annonce.surface }} m2</p>
+    <p>Type: {{ annonce.type }}</p>
+    <p>{{ annonce.prix }} €</p>
+
+    <a href="{{ path('annonces_liste') }}">Retour aux annonces</a>
 {% endblock %}

@@ -7,7 +7,12 @@
 
     <ul>
         {% for annonce in annonces %}
-            <li>{{ annonce.titre }}</li>
+            <li>
+                <a href="{{ path('annonces_voir', {id: annonce.id}) }}">
+                    {{ annonce.titre }}
+                </a>
+                <a href="{{ path('annonces_supprimer', {id: annonce.id}) }}">Supprimer</a>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
